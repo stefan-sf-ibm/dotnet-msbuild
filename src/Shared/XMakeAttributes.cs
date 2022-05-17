@@ -92,6 +92,7 @@ namespace Microsoft.Build.Shared
             internal const string x86 = "x86";
             internal const string x64 = "x64";
             internal const string arm64 = "arm64";
+            internal const string s390x = "s390x";
             internal const string currentArchitecture = "CurrentArchitecture";
             internal const string any = "*";
         }
@@ -110,7 +111,7 @@ namespace Microsoft.Build.Shared
 
         private static readonly HashSet<string> ValidMSBuildRuntimeValues = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { MSBuildRuntimeValues.clr2, MSBuildRuntimeValues.clr4, MSBuildRuntimeValues.currentRuntime, MSBuildRuntimeValues.net, MSBuildRuntimeValues.any };
 
-        private static readonly HashSet<string> ValidMSBuildArchitectureValues = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { MSBuildArchitectureValues.x86, MSBuildArchitectureValues.x64, MSBuildArchitectureValues.arm64, MSBuildArchitectureValues.currentArchitecture, MSBuildArchitectureValues.any };
+        private static readonly HashSet<string> ValidMSBuildArchitectureValues = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { MSBuildArchitectureValues.x86, MSBuildArchitectureValues.x64, MSBuildArchitectureValues.arm64, MSBuildArchitectureValues.s390x, MSBuildArchitectureValues.currentArchitecture, MSBuildArchitectureValues.any };
 
         /// <summary>
         /// Returns true if and only if the specified attribute is one of the attributes that the engine specifically recognizes
@@ -445,6 +446,9 @@ namespace Microsoft.Build.Shared
                     break;
                 case Architecture.Arm64:
                     currentArchitecture = MSBuildArchitectureValues.arm64;
+                    break;
+                case Architecture.S390x:
+                    currentArchitecture = MSBuildArchitectureValues.s390x;
                     break;
                 default:
                     throw new PlatformNotSupportedException(string.Format("{0} is not a supported architecture.", RuntimeInformation.ProcessArchitecture));
